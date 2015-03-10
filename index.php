@@ -2,6 +2,8 @@
 
 require_once "php/database_connect.php";
 require_once "php/user.php";
+$weight = $_POST["weight"];
+$height = $_POST["height"];
 $userIP = $_SERVER['REMOTE_ADDR'];
 $databaseConnectionConfirmation = '';
 if(mysql_ping() == 0)
@@ -13,9 +15,9 @@ else
   $databaseConnectionConfirmation = 'You have successfully connected to the database.'; 
 }
 $currentUser = new User();
-$currentUser->setWeight($_POST["weight"]);
-$currentUser->setHeight($_POST["height"]);
-$calculation = $currentUser->getBMI();
+$currentUser->setWeight($weight);
+$currentUser->setHeight($height);
+$calculation = $currentUser->BMICalculator();
 mysql_close();
 ?>
 
@@ -49,7 +51,7 @@ mysql_close();
           </div>
           <div class="form-group">
             <label for="height">Height in inches</label>
-            <input type="number" class="form-control" id="height" name="height" value="<?php echo $heightInInches; ?>" placeholder="Enter your height in inches">
+            <input type="number" class="form-control" id="height" name="height" value="<?php echo $height; ?>" placeholder="Enter your height in inches">
           </div>
           <button type="submit" class="btn btn-default">Calculate</button>
       </form>
