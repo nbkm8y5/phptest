@@ -2,8 +2,8 @@
 
 require_once "php/database_connect.php";
 require_once "php/user.php";
-$weight = $_POST["weight"];
-$height = $_POST["height"];
+// $weight = $_POST["weight"];
+// $height = $_POST["height"];
 $userIP = $_SERVER['REMOTE_ADDR'];
 $databaseConnectionConfirmation = '';
 if(mysql_ping() == 0)
@@ -15,9 +15,11 @@ else
   $databaseConnectionConfirmation = 'You have successfully connected to the database.'; 
 }
 $currentUser = new User();
-$currentUser->setWeight($weight);
-$currentUser->setHeight($height);
-$calculation = $currentUser->BMICalculator();
+$currentUser->setWeight($_POST["weight"]);
+$currentUser->setHeight($_POST["height"]);
+// $currentUser->setWeight($weight);
+// $currentUser->setHeight($height);
+// $calculation = $currentUser->BMICalculator();
 mysql_close();
 ?>
 
@@ -56,7 +58,8 @@ mysql_close();
           <button type="submit" class="btn btn-default">Calculate</button>
       </form>
       <h2>BODY MASS INDEX CALCULATION</h2>
-      <h3><?php echo $calculation; ?></h3>
+      <h3><?php echo $currentUser->getFinalNumber(); ?></h3>
+      <!-- <h3><?php echo $calculation; ?></h3> -->
       <h6><?php echo 'Your IP address is: ' . $userIP; ?></h6>
       <h6><?php echo $databaseConnectionConfirmation; ?></h6>
       <h6>&copy <?php echo date('Y'); ?> Rolando Moreno</h6>

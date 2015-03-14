@@ -17,10 +17,15 @@ class User
         $this->heightInInches = $heightInInches;
     }
 
-    public function BMICalculator()
+    private function BMICalculator()
     {
         $BMI = ($this->weight / ($this->heightInInches * $this->heightInInches)) * $this->CALCULATION;
         $this->finalNumber = number_format($BMI, 2);
+        
+    }
+
+    public function getFinalNumber(){
+        $this->BMICalculator();
         return $this->finalNumber;
     }
 }
